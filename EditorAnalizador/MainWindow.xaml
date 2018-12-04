@@ -12,22 +12,22 @@
                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                  FontSize="20" FontFamily="Consolas" Foreground="White" Background="#01162B"
                  BorderThickness="2" BorderBrush="CadetBlue"
-                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50"/>
+                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40"/>
 
         <TextBox Name="tbxTokens" Height="180" Width="920"
                  AcceptsReturn="True" AcceptsTab="True" IsEnabled="True"
                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                  FontSize="20" FontFamily="Consolas" Foreground="White" Background="#161631" Visibility="Collapsed"
                  BorderThickness="2" BorderBrush="CadetBlue"
-                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,90" />
+                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100" />
 
-        <Button Name="btnAnalizar" Content="Analizar" Height="50" Width="120"
+        <Button Name="btnAnalizar" Content="Analizar" Height="45" Width="120"
                 FontSize="20" FontWeight="DemiBold"
-                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="17,0,0,20"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,30"
                 Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue" Click="btnAnalizar_Click" Grid.ColumnSpan="3" Grid.Column="1"/>
 
         <Label Name="lblStatus" Height="50" Width="160"
                FontSize="30" FontWeight="Bold"
-               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="170,20" Grid.Column="3"/>
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="170,30" Grid.Column="3"/>
     </Grid>
 </Window>
