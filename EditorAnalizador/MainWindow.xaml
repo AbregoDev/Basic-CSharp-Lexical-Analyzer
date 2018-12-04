@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EditorAnalizador"
         mc:Ignorable="d"
-        Title="MainWindow" Height="680" Width="980" Background="#011C36" ResizeMode="NoResize">
+        Title="MainWindow" Height="680" Width="980" Background="#011C36" ResizeMode="CanResize">
     <Grid PreviewKeyUp="Grid_PreviewKeyUp">
-        <TextBox Name="tbxCode" Height="510" Width="920"
+        <TextBox Name="tbxCode" Height="515" Width="920"
                  AcceptsReturn="True" AcceptsTab="True"
                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                  FontSize="20" FontFamily="Consolas" Foreground="White" Background="#01162B"
@@ -21,13 +21,14 @@
                  BorderThickness="2" BorderBrush="CadetBlue"
                  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100" />
 
-        <Button Name="btnAnalizar" Content="Analizar" Height="45" Width="120"
+        <Button Name="btnAnalizar" Content="Analizar" Height="40" Width="100"
                 FontSize="20" FontWeight="DemiBold"
-                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,30"
-                Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue" Click="btnAnalizar_Click" Grid.ColumnSpan="3" Grid.Column="1"/>
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="26,30"
+                Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue"
+                Click="btnAnalizar_Click"/>
 
         <Label Name="lblStatus" Height="50" Width="160"
                FontSize="30" FontWeight="Bold"
-               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="170,30" Grid.Column="3"/>
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="170,30"/>
     </Grid>
 </Window>

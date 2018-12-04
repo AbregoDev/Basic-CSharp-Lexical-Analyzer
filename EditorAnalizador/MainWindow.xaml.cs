@@ -132,6 +132,22 @@ namespace EditorAnalizador
                             k++;
                         }
 
+                        else if (c == '?')
+                        {
+                            lexms += "Lexema: \"?\", Token: Interrogación\n";
+
+                            //status = 0;
+                            k++;
+                        }
+
+                        else if (c == '_')
+                        {
+                            buffer = c.ToString();
+
+                            status = 19;
+                            k++;
+                        }
+
                         //Operadores Aritméticos
 
                         else if (c == '/')
@@ -310,7 +326,7 @@ namespace EditorAnalizador
                     case 2:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"*/\", Token: Producto Asignado\n";
+                            lexms += "Lexema: \"*=\", Token: Producto Asignado\n";
                             buffer = string.Empty;
 
                             status = 0;
@@ -328,11 +344,19 @@ namespace EditorAnalizador
                         break;
 
                     case 3:
-                        if (Char.IsLetter(c))
+                        if (Char.IsLetter(c) || Char.IsDigit(c))
                         {
                             buffer += c;
 
                             //status = 3;
+                            k++;
+                        }
+
+                        else if (c == '_')
+                        {
+                            buffer += c;
+
+                            status = 19;
                             k++;
                         }
 
@@ -681,7 +705,7 @@ namespace EditorAnalizador
                                     break;
                             }
 
-                            //status = 17;
+                            //status = 18;
                             k++;
                         }
 
@@ -702,19 +726,27 @@ namespace EditorAnalizador
                                 {
                                     buffer += c;
 
-                                    //status = 17;
+                                    //status = 18;
                                     k++;
                                 }
                             }
 
                             else
                             {
-                                lexms += "Lexema: \"/*" + buffer + "*\", Token: Error\n";
-                                buffer = string.Empty;
+                                buffer += c;
 
-                                lblStatus.Content = "Error";
-                                lblStatus.Foreground= Brushes.OrangeRed;
+                                status = -1;
                             }
+                        }
+                        break;
+
+                    case 19:
+                        if (Char.IsLetter(c) || Char.IsDigit(c))
+                        {
+                            buffer += c;
+
+                            status = 3;
+                            k++;
                         }
                         break;
                 }
@@ -822,7 +854,7 @@ namespace EditorAnalizador
                 }
             }
 
-            if (s.Length == 3)
+            else if (s.Length == 3)
             {
                 switch (s)
                 {
