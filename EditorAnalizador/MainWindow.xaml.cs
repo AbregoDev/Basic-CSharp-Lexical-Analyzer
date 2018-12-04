@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Text.RegularExpressions;
 
 namespace EditorAnalizador
 {
@@ -15,7 +14,6 @@ namespace EditorAnalizador
         sbyte status;
         int k;
         string lexms, buffer;
-        string file = string.Empty;
 
         public MainWindow()
         {
@@ -23,11 +21,6 @@ namespace EditorAnalizador
 
             tbxCode.Focus();
             btnAnalizar.IsEnabled = false;
-
-            buffer = "";
-            lexms = "";
-            status = 0;
-            k = 0;
         }
 
         private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -143,30 +136,40 @@ namespace EditorAnalizador
 
                         else if (c == '/')
                         {
+                            buffer = c.ToString();
+                            
                             status = 1;
                             k++;
                         }
 
                         else if (c == '*')
                         {
+                            buffer = c.ToString();
+
                             status = 2;
                             k++;
                         }
 
                         else if (c == '+')
                         {
+                            buffer = c.ToString();
+
                             status = 5;
                             k++;
                         }
 
                         else if (c == '-')
                         {
+                            buffer = c.ToString();
+
                             status = 6;
                             k++;
                         }
 
                         else if (c == '%')
                         {
+                            buffer = c.ToString();
+
                             status = 7;
                             k++;
                         }
@@ -175,24 +178,32 @@ namespace EditorAnalizador
 
                         else if (c == '&')
                         {
+                            buffer = c.ToString();
+
                             status = 8;
                             k++;
                         }
 
                         else if (c == '|')
                         {
+                            buffer = c.ToString();
+
                             status = 9;
                             k++;
                         }
 
                         else if (c == '!')
                         {
+                            buffer = c.ToString();
+
                             status = 10;
                             k++;
                         }
 
                         else if (c == '=')
                         {
+                            buffer = c.ToString();
+
                             status = 11;
                             k++;
                         }
@@ -209,17 +220,21 @@ namespace EditorAnalizador
 
                         else if (c == '<')
                         {
+                            buffer = c.ToString();
+
                             status = 12;
                             k++;
                         }
 
                         else if (c == '>')
                         {
+                            buffer = c.ToString();
+
                             status = 13;
                             k++;
                         }
 
-                        //Secuencias de escape
+                        //Secuencias de escape (omitir)
                         else if (c == 9 || c == 10 || c == 13 || c == 32)
                         {
                             //status = 0;
@@ -269,15 +284,14 @@ namespace EditorAnalizador
 
                         else if (c == '*')
                         {
-                            lexms += "Lexema: \"/*\", Token: Comentario de Párrafo Inicio\n";
-
-                            status = 0;
+                            status = 18;
                             k++;
                         }
 
                         else if (c == '=')
                         {
                             lexms += "Lexema: \"/=\", Token: División Asignada\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -286,6 +300,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"/\", Token: División\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -293,17 +308,10 @@ namespace EditorAnalizador
                         break;
 
                     case 2:
-                        if (c == '/')
-                        {
-                            lexms += "Lexema: \"*/\", Token: Comentario de Párrafo Fin\n";
-
-                            status = 0;
-                            k++;
-                        }
-
                         if (c == '=')
                         {
                             lexms += "Lexema: \"*/\", Token: Producto Asignado\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -312,6 +320,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"*\", Token: Producto\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -330,7 +339,7 @@ namespace EditorAnalizador
                         else
                         {
                             MatcherReservedWords(buffer);
-                            buffer = "";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -349,7 +358,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"" + buffer + "\", Token: Dígito\n";
-                            buffer = "";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -360,6 +369,7 @@ namespace EditorAnalizador
                         if (c == '+')
                         {
                             lexms += "Lexema: \"++\", Token: Incremento\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -368,6 +378,7 @@ namespace EditorAnalizador
                         else if (c == '=')
                         {
                             lexms += "Lexema: \"+=\", Token: Suma Asignada\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -376,6 +387,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"+\", Token: Suma\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -386,6 +398,7 @@ namespace EditorAnalizador
                         if (c == '-')
                         {
                             lexms += "Lexema: \"--\", Token: Decremento\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -394,6 +407,7 @@ namespace EditorAnalizador
                         else if (c == '=')
                         {
                             lexms += "Lexema: \"-=\", Token: Resta Asignada\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -402,6 +416,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"-\", Token: Resta\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -412,6 +427,7 @@ namespace EditorAnalizador
                         if (c == '=')
                         {
                             lexms += "Lexema: \"%=\", Token: Módulo Asignado\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -420,6 +436,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"%\", Token: Módulo\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -430,6 +447,7 @@ namespace EditorAnalizador
                         if (c == '&')
                         {
                             lexms += "Lexema: \"&&\", Token: And Lógico\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -438,6 +456,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"&\", Token: And Bitwise\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -448,6 +467,7 @@ namespace EditorAnalizador
                         if (c == '|')
                         {
                             lexms += "Lexema: \"||\", Token: Or Lógico\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -456,6 +476,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"%\", Token: Or Bitwise\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -466,6 +487,7 @@ namespace EditorAnalizador
                         if (c == '=')
                         {
                             lexms += "Lexema: \"!=\", Token: Diferente de\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -474,6 +496,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"!\", Token: Not Lógico\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -484,6 +507,7 @@ namespace EditorAnalizador
                         if (c == '=')
                         {
                             lexms += "Lexema: \"==\", Token: Igual a\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -492,6 +516,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"=\", Token: Asignación\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -502,6 +527,7 @@ namespace EditorAnalizador
                         if (c == '=')
                         {
                             lexms += "Lexema: \"<=\", Token: Menor o Igual\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -510,6 +536,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \"<\", Token: Menor que\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -520,6 +547,7 @@ namespace EditorAnalizador
                         if (c == '=')
                         {
                             lexms += "Lexema: \">=\", Token: Mayor o Igual\n";
+                            buffer = string.Empty;
 
                             status = 0;
                             k++;
@@ -528,6 +556,7 @@ namespace EditorAnalizador
                         else
                         {
                             lexms += "Lexema: \">\", Token: Mayor que\n";
+                            buffer = string.Empty;
 
                             status = 0;
                         }
@@ -633,6 +662,61 @@ namespace EditorAnalizador
                         }
 
                         break;
+
+                    case 18:
+                        if (c != '*')
+                        {
+                            switch (c)
+                            {
+                                case '\n':
+                                    buffer += "|\\n|";
+                                    break;
+
+                                case '\r':
+                                    buffer += "|\\r|";
+                                    break;
+
+                                default:
+                                    buffer += c;
+                                    break;
+                            }
+
+                            //status = 17;
+                            k++;
+                        }
+
+                        else
+                        {
+                            if (k + 1 != tbxCode.Text.Length)
+                            {
+                                if (tbxCode.Text[k + 1] == '/')
+                                {
+                                    lexms += "Lexema: \"/*" + buffer + "*/\", Token: Comentario de Párrafo\n";
+                                    buffer = string.Empty;
+
+                                    status = 0;
+                                    k += 2;
+                                }
+
+                                else
+                                {
+                                    buffer += c;
+
+                                    //status = 17;
+                                    k++;
+                                }
+                            }
+
+                            else
+                            {
+                                lexms += "Lexema: \"/*" + buffer + "*\", Token: Error\n";
+                                buffer = string.Empty;
+
+                                lblStatus.Content = "Error";
+                                lblStatus.Foreground= Brushes.OrangeRed;
+                            }
+                        }
+                        break;
                 }
 
                 if (status == -1)
@@ -686,7 +770,7 @@ namespace EditorAnalizador
                 }
                 else if (status == 11)
                 {
-                    lexms += "Lexema: \"=\", Token: Igual a\n";
+                    lexms += "Lexema: \"=\", Token: Asignación\n";
                 }
                 else if (status == 12)
                 {
@@ -707,6 +791,8 @@ namespace EditorAnalizador
                     lblStatus.Content = "Error";
                     lblStatus.Foreground = Brushes.OrangeRed;
                 }
+
+                buffer = string.Empty;
             }
 
             tbxTokens.Text = lexms;
@@ -714,8 +800,6 @@ namespace EditorAnalizador
 
         private void MatcherReservedWords(string s)
         {
-            Regex rg = new Regex("((_[A-Za-z0-9]|[A-Za-z])\\d*)+");
-
             if (s.Length == 2)
             {
                 switch (s)
@@ -824,7 +908,7 @@ namespace EditorAnalizador
                         lexms += "Lexema: \"" + s + "\", Token: This\n";
                         break;
 
-                    case "True":
+                    case "true":
                         lexms += "Lexema: \"" + s + "\", Token: True\n";
                         break;
 
@@ -996,7 +1080,6 @@ namespace EditorAnalizador
 
         private void Reset()
         {
-            buffer = "";
             lexms = "";
             status = 0;
             k = 0;
