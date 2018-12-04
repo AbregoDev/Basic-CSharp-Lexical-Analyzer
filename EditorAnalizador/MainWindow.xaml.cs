@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace EditorAnalizador
 {
@@ -14,6 +15,7 @@ namespace EditorAnalizador
         sbyte status;
         int k;
         string lexms, buffer;
+        List<string[]> tokens = new List<string[]>();
 
         public MainWindow()
         {
@@ -54,7 +56,8 @@ namespace EditorAnalizador
 
                         if (c == '.')
                         {
-                            lexms += "Lexema: \".\", Token: Punto\n";
+                            ////lexms += "Lexema: \".\", Token: Punto\n";
+                            tokens.Add(new string[] {".", "Punto"});
 
                             //status = 0;
                             k++;
@@ -62,7 +65,8 @@ namespace EditorAnalizador
 
                         else if (c == ',')
                         {
-                            lexms += "Lexema: \",\", Token: Coma\n";
+                            ////lexms += "Lexema: \",\", Token: Coma\n";
+                            tokens.Add(new string[] { ",", "Coma" });
 
                             //status = 0;
                             k++;
@@ -70,7 +74,8 @@ namespace EditorAnalizador
 
                         else if (c == '(')
                         {
-                            lexms += "Lexema: \"(\", Token: Paréntesis Izquierdo\n";
+                            ////lexms += "Lexema: \"(\", Token: Paréntesis Izquierdo\n";
+                            tokens.Add(new string[] { "(", "P Izq" });
 
                             //status = 0;
                             k++;
@@ -78,7 +83,8 @@ namespace EditorAnalizador
 
                         else if (c == ')')
                         {
-                            lexms += "Lexema: \")\", Token: Paréntesis Derecho\n";
+                            //lexms += "Lexema: \")\", Token: Paréntesis Derecho\n";
+                            tokens.Add(new string[] { ")", "P Der" });
 
                             //status = 0;
                             k++;
@@ -86,7 +92,8 @@ namespace EditorAnalizador
 
                         else if (c == '{')
                         {
-                            lexms += "Lexema: \"{\", Token: Llave Izquierda\n";
+                            //lexms += "Lexema: \"{\", Token: Llave Izquierda\n";
+                            tokens.Add(new string[] { "{", "LlaveI" });
 
                             //status = 0;
                             k++;
@@ -94,7 +101,8 @@ namespace EditorAnalizador
 
                         else if (c == '}')
                         {
-                            lexms += "Lexema: \"}\", Token: Llave Derecha\n";
+                            //lexms += "Lexema: \"}\", Token: Llave Derecha\n";
+                            tokens.Add(new string[] { "}", "LlaveD" });
 
                             //status = 0;
                             k++;
@@ -102,7 +110,8 @@ namespace EditorAnalizador
 
                         else if (c == '[')
                         {
-                            lexms += "Lexema: \"[\", Token: Corchete Izquierdo\n";
+                            //lexms += "Lexema: \"[\", Token: Corchete Izquierdo\n";
+                            tokens.Add(new string[] { "[", "CorchI" });
 
                             //status = 0;
                             k++;
@@ -110,7 +119,8 @@ namespace EditorAnalizador
 
                         else if (c == ']')
                         {
-                            lexms += "Lexema: \"]\", Token: Corchete Derecho\n";
+                            //lexms += "Lexema: \"]\", Token: Corchete Derecho\n";
+                            tokens.Add(new string[] { "]", "CorchD" });
 
                             //status = 0;
                             k++;
@@ -118,7 +128,8 @@ namespace EditorAnalizador
 
                         else if (c == ';')
                         {
-                            lexms += "Lexema: \";\", Token: Punto y Coma\n";
+                            //lexms += "Lexema: \";\", Token: Punto y Coma\n";
+                            tokens.Add(new string[] { ";", "PtoyCma" });
 
                             //status = 0;
                             k++;
@@ -126,7 +137,8 @@ namespace EditorAnalizador
 
                         else if (c == ':')
                         {
-                            lexms += "Lexema: \":\", Token: Dos Puntos\n";
+                            //lexms += "Lexema: \":\", Token: Dos Puntos\n";
+                            tokens.Add(new string[] { ":", "DosPuntos" });
 
                             //status = 0;
                             k++;
@@ -134,7 +146,8 @@ namespace EditorAnalizador
 
                         else if (c == '?')
                         {
-                            lexms += "Lexema: \"?\", Token: Interrogación\n";
+                            //lexms += "Lexema: \"?\", Token: Interrogación\n";
+                            tokens.Add(new string[] { "?", "Interrog" });
 
                             //status = 0;
                             k++;
@@ -226,7 +239,8 @@ namespace EditorAnalizador
 
                         else if (c == '^')
                         {
-                            lexms += "Lexema: \"^\", Token: Xor Lógico\n";
+                            //lexms += "Lexema: \"^\", Token: Xor Lógico\n";
+                            tokens.Add(new string[] { "^", "Xor" });
 
                             //status = 0;
                             k++;
@@ -306,7 +320,8 @@ namespace EditorAnalizador
 
                         else if (c == '=')
                         {
-                            lexms += "Lexema: \"/=\", Token: División Asignada\n";
+                            //lexms += "Lexema: \"/=\", Token: División Asignada\n";
+                            tokens.Add(new string[] { "/=", "DivAs" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -315,7 +330,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"/\", Token: División\n";
+                            //lexms += "Lexema: \"/\", Token: División\n";
+                            tokens.Add(new string[] { "/", "Div" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -326,7 +342,8 @@ namespace EditorAnalizador
                     case 2:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"*=\", Token: Producto Asignado\n";
+                            //lexms += "Lexema: \"*=\", Token: Producto Asignado\n";
+                            tokens.Add(new string[] { "*=", "ProdAs" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -335,7 +352,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"*\", Token: Producto\n";
+                            //lexms += "Lexema: \"*\", Token: Producto\n";
+                            tokens.Add(new string[] { "*", "Prod" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -381,7 +399,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"" + buffer + "\", Token: Dígito\n";
+                            //lexms += "Lexema: \"" + buffer + "\", Token: Dígito\n";
+                            tokens.Add(new string[] { buffer, "Dig" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -392,7 +411,8 @@ namespace EditorAnalizador
                     case 5:
                         if (c == '+')
                         {
-                            lexms += "Lexema: \"++\", Token: Incremento\n";
+                            //lexms += "Lexema: \"++\", Token: Incremento\n";
+                            tokens.Add(new string[] { "++", "Incr" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -401,7 +421,8 @@ namespace EditorAnalizador
 
                         else if (c == '=')
                         {
-                            lexms += "Lexema: \"+=\", Token: Suma Asignada\n";
+                            //lexms += "Lexema: \"+=\", Token: Suma Asignada\n";
+                            tokens.Add(new string[] { "+=", "SumAs" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -410,7 +431,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"+\", Token: Suma\n";
+                            //lexms += "Lexema: \"+\", Token: Suma\n";
+                            tokens.Add(new string[] { "+", "Suma" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -421,7 +443,8 @@ namespace EditorAnalizador
                     case 6:
                         if (c == '-')
                         {
-                            lexms += "Lexema: \"--\", Token: Decremento\n";
+                            //lexms += "Lexema: \"--\", Token: Decremento\n";
+                            tokens.Add(new string[] { "--", "Decr" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -430,7 +453,8 @@ namespace EditorAnalizador
 
                         else if (c == '=')
                         {
-                            lexms += "Lexema: \"-=\", Token: Resta Asignada\n";
+                            //lexms += "Lexema: \"-=\", Token: Resta Asignada\n";
+                            tokens.Add(new string[] { "-=", "RestAs" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -439,7 +463,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"-\", Token: Resta\n";
+                            //lexms += "Lexema: \"-\", Token: Resta\n";
+                            tokens.Add(new string[] { "-", "Resta" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -450,7 +475,8 @@ namespace EditorAnalizador
                     case 7:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"%=\", Token: Módulo Asignado\n";
+                            //lexms += "Lexema: \"%=\", Token: Módulo Asignado\n";
+                            tokens.Add(new string[] { "%=", "ModAs" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -459,7 +485,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"%\", Token: Módulo\n";
+                            //lexms += "Lexema: \"%\", Token: Módulo\n";
+                            tokens.Add(new string[] { "%", "Mod" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -470,7 +497,8 @@ namespace EditorAnalizador
                     case 8:
                         if (c == '&')
                         {
-                            lexms += "Lexema: \"&&\", Token: And Lógico\n";
+                            //lexms += "Lexema: \"&&\", Token: And Lógico\n";
+                            tokens.Add(new string[] { "&&", "AndL" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -479,7 +507,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"&\", Token: And Bitwise\n";
+                            //lexms += "Lexema: \"&\", Token: And Bitwise\n";
+                            tokens.Add(new string[] { "&", "AndB" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -490,7 +519,8 @@ namespace EditorAnalizador
                     case 9:
                         if (c == '|')
                         {
-                            lexms += "Lexema: \"||\", Token: Or Lógico\n";
+                            //lexms += "Lexema: \"||\", Token: Or Lógico\n";
+                            tokens.Add(new string[] { "||", "OrL" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -499,7 +529,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"%\", Token: Or Bitwise\n";
+                            //lexms += "Lexema: \"%\", Token: Or Bitwise\n";
+                            tokens.Add(new string[] { "|", "OrB" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -510,7 +541,8 @@ namespace EditorAnalizador
                     case 10:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"!=\", Token: Diferente de\n";
+                            //lexms += "Lexema: \"!=\", Token: Diferente de\n";
+                            tokens.Add(new string[] { "!=", "Diff" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -519,7 +551,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"!\", Token: Not Lógico\n";
+                            //lexms += "Lexema: \"!\", Token: Not Lógico\n";
+                            tokens.Add(new string[] { "!", "Not" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -530,7 +563,8 @@ namespace EditorAnalizador
                     case 11:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"==\", Token: Igual a\n";
+                            //lexms += "Lexema: \"==\", Token: Igual a\n";
+                            tokens.Add(new string[] { "==", "Igual" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -539,7 +573,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"=\", Token: Asignación\n";
+                            //lexms += "Lexema: \"=\", Token: Asignación\n";
+                            tokens.Add(new string[] { "=", "Asign" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -550,7 +585,8 @@ namespace EditorAnalizador
                     case 12:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \"<=\", Token: Menor o Igual\n";
+                            //lexms += "Lexema: \"<=\", Token: Menor o Igual\n";
+                            tokens.Add(new string[] { "<=", "MenorIgual" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -559,7 +595,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"<\", Token: Menor que\n";
+                            //lexms += "Lexema: \"<\", Token: Menor que\n";
+                            tokens.Add(new string[] { "<", "Menor" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -570,7 +607,8 @@ namespace EditorAnalizador
                     case 13:
                         if (c == '=')
                         {
-                            lexms += "Lexema: \">=\", Token: Mayor o Igual\n";
+                            //lexms += "Lexema: \">=\", Token: Mayor o Igual\n";
+                            tokens.Add(new string[] { ">=", "MayorIgual" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -579,7 +617,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \">\", Token: Mayor que\n";
+                            //lexms += "Lexema: \">\", Token: Mayor que\n";
+                            tokens.Add(new string[] { ">", "Mayor" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -598,7 +637,8 @@ namespace EditorAnalizador
 
                         else if (c == 34)
                         {
-                            lexms += "Lexema: \"" + buffer + "\"\", Token: Cadena\n";
+                            //lexms += "Lexema: \"" + buffer + "\"\", Token: Cadena\n";
+                            tokens.Add(new string[] { buffer + "\"", "Cadena" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -651,7 +691,8 @@ namespace EditorAnalizador
 
                         else if (c == 34)
                         {
-                            lexms += "Lexema: \"" + buffer + "\"\", Token: Cadena\n";
+                            //lexms += "Lexema: \"" + buffer + "\"\", Token: Cadena\n";
+                            tokens.Add(new string[] { buffer + "\"", "Cadena" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -678,7 +719,8 @@ namespace EditorAnalizador
 
                         else
                         {
-                            lexms += "Lexema: \"//" + buffer + "\"\", Token: Comentario\n";
+                            //lexms += "Lexema: \"/" + buffer + "\", Token: Comentario\n";
+                            tokens.Add(new string[] { "/" + buffer, "Coment" });
                             buffer = string.Empty;
 
                             status = 0;
@@ -715,7 +757,8 @@ namespace EditorAnalizador
                             {
                                 if (tbxCode.Text[k + 1] == '/')
                                 {
-                                    lexms += "Lexema: \"/*" + buffer + "*/\", Token: Comentario de Párrafo\n";
+                                    //lexms += "Lexema: \"/*" + buffer + "*/\", Token: Comentario de Párrafo\n";
+                                    tokens.Add(new string[] { "/*" + buffer + "*/", "ComentP" });
                                     buffer = string.Empty;
 
                                     status = 0;
@@ -762,11 +805,13 @@ namespace EditorAnalizador
             {
                 if (status == 1)
                 {
-                    lexms += "Lexema: \"/\", Token: División\n";
+                    //lexms += "Lexema: \"/\", Token: División\n";
+                    tokens.Add(new string[] { "/", "Div" });
                 }
                 else if (status == 2)
                 {
-                    lexms += "Lexema: \"*\", Token: Producto\n";
+                    //lexms += "Lexema: \"*\", Token: Producto\n";
+                    tokens.Add(new string[] { "*", "Prod" });
                 }
                 else if (status == 3)
                 {
@@ -774,51 +819,63 @@ namespace EditorAnalizador
                 }
                 else if (status == 4)
                 {
-                    lexms += "Lexema: \"" + buffer + "\", Token: Dígito\n";
+                    //lexms += "Lexema: \"" + buffer + "\", Token: Dígito\n";
+                    tokens.Add(new string[] { buffer, "Dig" });
                 }
                 else if (status == 5)
                 {
-                    lexms += "Lexema: \"+\", Token: Suma\n";
+                    //lexms += "Lexema: \"+\", Token: Suma\n";
+                    tokens.Add(new string[] { "+", "Suma" });
                 }
                 else if (status == 6)
                 {
-                    lexms += "Lexema: \"-\", Token: Resta\n";
+                    //lexms += "Lexema: \"-\", Token: Resta\n";
+                    tokens.Add(new string[] { "-", "Resta" });
                 }
                 else if (status == 7)
                 {
-                    lexms += "Lexema: \"%\", Token: Módulo\n";
+                    //lexms += "Lexema: \"%\", Token: Módulo\n";
+                    tokens.Add(new string[] { "%", "Mod" });
                 }
                 else if (status == 8)
                 {
-                    lexms += "Lexema: \"&\", Token: And Bitwise\n";
+                    //lexms += "Lexema: \"&\", Token: And Bitwise\n";
+                    tokens.Add(new string[] { "&", "AndB" });
                 }
                 else if (status == 9)
                 {
-                    lexms += "Lexema: \"|\", Token: Or Bitwise\n";
+                    //lexms += "Lexema: \"|\", Token: Or Bitwise\n";
+                    tokens.Add(new string[] { "|", "OrB" });
                 }
                 else if (status == 10)
                 {
-                    lexms += "Lexema: \"!\", Token: Not Lógico\n";
+                    //lexms += "Lexema: \"!\", Token: Not Lógico\n";
+                    tokens.Add(new string[] { "!", "Not" });
                 }
                 else if (status == 11)
                 {
-                    lexms += "Lexema: \"=\", Token: Asignación\n";
+                    //lexms += "Lexema: \"=\", Token: Asignación\n";
+                    tokens.Add(new string[] { "=", "Asign" });
                 }
                 else if (status == 12)
                 {
-                    lexms += "Lexema: \"<\", Token: Menor que\n";
+                    //lexms += "Lexema: \"<\", Token: Menor que\n";
+                    tokens.Add(new string[] { "<", "Menor" });
                 }
                 else if (status == 13)
                 {
-                    lexms += "Lexema: \">\", Token: Mayor que\n";
+                    //lexms += "Lexema: \">\", Token: Mayor que\n";
+                    tokens.Add(new string[] { ">", "Mayor" });
                 }
                 else if (status == 17)
                 {
-                    lexms += "Lexema: \"//" + buffer + "\", Token: Comentario\n";
+                    //lexms += "Lexema: \"/" + buffer + "\", Token: Comentario\n";
+                    tokens.Add(new string[] { "/" + buffer, "Coment" });
                 }
                 else
                 {
-                    lexms += "Lexema: \"" + buffer + "\", Token: Error\n";
+                    //lexms += "Lexema: \"" + buffer + "\", Token: Error\n";
+                    tokens.Add(new string[] { buffer, "Error" });
 
                     lblStatus.Content = "Error";
                     lblStatus.Foreground = Brushes.OrangeRed;
@@ -827,7 +884,10 @@ namespace EditorAnalizador
                 buffer = string.Empty;
             }
 
-            tbxTokens.Text = lexms;
+            //tbxTokens.Text = lexms;
+
+            for(int f = 0; f < tokens.Count; f++)
+                tbxTokens.Text += "Lexema: \"" + tokens[f][0] + "\", Token: " + tokens[f][1] + "\n";
         }
 
         private void MatcherReservedWords(string s)
@@ -837,19 +897,23 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "if":
-                        lexms += "Lexema: \"" + s + "\", Token: If\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: If\n";
+                        tokens.Add(new string[] { s, "if" });
                         break;
 
                     case "do":
-                        lexms += "Lexema: \"" + s + "\", Token: Do\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Do\n";
+                        tokens.Add(new string[] { s, "do" });
                         break;
 
                     case "Ln":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -859,47 +923,58 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "int":
-                        lexms += "Lexema: \"" + s + "\", Token: Int\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Int\n";
+                        tokens.Add(new string[] { s, "int" });
                         break;
 
                     case "for":
-                        lexms += "Lexema: \"" + s + "\", Token: For\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: For\n";
+                        tokens.Add(new string[] { s, "for" });
                         break;
 
                     case "new":
-                        lexms += "Lexema: \"" + s + "\", Token: New\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: New\n";
+                        tokens.Add(new string[] { s, "new" });
                         break;
 
                     case "try":
-                        lexms += "Lexema: \"" + s + "\", Token: Try\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Try\n";
+                        tokens.Add(new string[] { s, "try" });
                         break;
 
                     case "Cos":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Sin":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Tan":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Exp":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Log":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Pow":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -909,59 +984,73 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "bool":
-                        lexms += "Lexema: \"" + s + "\", Token: Boolean\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Boolean\n";
+                        tokens.Add(new string[] { s, "bool" });
                         break;
 
                     case "long":
-                        lexms += "Lexema: \"" + s + "\", Token: Long\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Long\n";
+                        tokens.Add(new string[] { s, "long" });
                         break;
 
                     case "char":
-                        lexms += "Lexema: \"" + s + "\", Token: Char\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Char\n";
+                        tokens.Add(new string[] { s, "char" });
                         break;
 
                     case "case":
-                        lexms += "Lexema: \"" + s + "\", Token: Case\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Case\n";
+                        tokens.Add(new string[] { s, "case" });
                         break;
 
                     case "else":
-                        lexms += "Lexema: \"" + s + "\", Token: Else\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Else\n";
+                        tokens.Add(new string[] { s, "else" });
                         break;
 
                     case "main":
-                        lexms += "Lexema: \"" + s + "\", Token: Método Principal\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método Principal\n";
+                        tokens.Add(new string[] { s, "Main" });
                         break;
 
                     case "null":
-                        lexms += "Lexema: \"" + s + "\", Token: Null\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Null\n";
+                        tokens.Add(new string[] { s, "null" });
                         break;
 
                     case "this":
-                        lexms += "Lexema: \"" + s + "\", Token: This\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: This\n";
+                        tokens.Add(new string[] { s, "this" });
                         break;
 
                     case "true":
-                        lexms += "Lexema: \"" + s + "\", Token: True\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: True\n";
+                        tokens.Add(new string[] { s, "true" });
                         break;
 
                     case "void":
-                        lexms += "Lexema: \"" + s + "\", Token: Void\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Void\n";
+                        tokens.Add(new string[] { s, "void" });
                         break;
 
                     case "Math":
-                        lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        tokens.Add(new string[] { s, "clase" });
                         break;
 
                     case "Read":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     case "Sqrt":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -971,35 +1060,43 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "float":
-                        lexms += "Lexema: \"" + s + "\", Token: Float\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Float\n";
+                        tokens.Add(new string[] { s, "float" });
                         break;
 
                     case "break":
-                        lexms += "Lexema: \"" + s + "\", Token: Break\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Break\n";
+                        tokens.Add(new string[] { s, "break" });
                         break;
 
                     case "catch":
-                        lexms += "Lexema: \"" + s + "\", Token: Catch\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Catch\n";
+                        tokens.Add(new string[] { s, "catch" });
                         break;
 
                     case "class":
-                        lexms += "Lexema: \"" + s + "\", Token: Class\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Class\n";
+                        tokens.Add(new string[] { s, "class" });
                         break;
 
                     case "false":
-                        lexms += "Lexema: \"" + s + "\", Token: False\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: False\n";
+                        tokens.Add(new string[] { s, "false" });
                         break;
 
                     case "while":
-                        lexms += "Lexema: \"" + s + "\", Token: While\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: While\n";
+                        tokens.Add(new string[] { s, "while" });
                         break;
 
                     case "using":
-                        lexms += "Lexema: \"" + s + "\", Token: Using\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Using\n";
+                        tokens.Add(new string[] { s, "using" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -1009,39 +1106,48 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "double":
-                        lexms += "Lexema: \"" + s + "\", Token: Double\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Double\n";
+                        tokens.Add(new string[] { s, "double" });
                         break;
 
                     case "string":
-                        lexms += "Lexema: \"" + s + "\", Token: Tipo String\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Tipo String\n";
+                        tokens.Add(new string[] { s, "string" });
                         break;
 
                     case "return":
-                        lexms += "Lexema: \"" + s + "\", Token: Return\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Return\n";
+                        tokens.Add(new string[] { s, "return" });
                         break;
 
                     case "public":
-                        lexms += "Lexema: \"" + s + "\", Token: Public\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Public\n";
+                        tokens.Add(new string[] { s, "public" });
                         break;
 
                     case "static":
-                        lexms += "Lexema: \"" + s + "\", Token: Static\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Static\n";
+                        tokens.Add(new string[] { s, "static" });
                         break;
 
                     case "switch":
-                        lexms += "Lexema: \"" + s + "\", Token: Switch\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Switch\n";
+                        tokens.Add(new string[] { s, "switch" });
                         break;
 
                     case "System":
-                        lexms += "Lexema: \"" + s + "\", Token: Namespace\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Namespace\n";
+                        tokens.Add(new string[] { s, "ns" });
                         break;
 
                     case "Random":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -1051,19 +1157,23 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "decimal":
-                        lexms += "Lexema: \"" + s + "\", Token: Decimal\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Decimal\n";
+                        tokens.Add(new string[] { s, "dec" });
                         break;
 
                     case "private":
-                        lexms += "Lexema: \"" + s + "\", Token: Private\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Private\n";
+                        tokens.Add(new string[] { s, "priv" });
                         break;
 
                     case "Console":
-                        lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        tokens.Add(new string[] { s, "clase" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -1073,15 +1183,18 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "internal":
-                        lexms += "Lexema: \"" + s + "\", Token: Internal\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Internal\n";
+                        tokens.Add(new string[] { s, "internal" });
                         break;
 
                     case "ReadLine":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
@@ -1091,28 +1204,33 @@ namespace EditorAnalizador
                 switch (s)
                 {
                     case "Exception":
-                        lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Clase\n";
+                        tokens.Add(new string[] { s, "clase" });
                         break;
 
                     case "WriteLine":
-                        lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        //lexms += "Lexema: \"" + s + "\", Token: Método\n";
+                        tokens.Add(new string[] { s, "met" });
                         break;
 
                     default:
-                        lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                        tokens.Add(new string[] { s, "id" });
                         break;
                 }
             }
 
             else
             {
-                lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                //lexms += "Lexema: \"" + s + "\", Token:  Identificador\n";
+                tokens.Add(new string[] { s, "id" });
             }
         }
 
         private void Reset()
         {
-            lexms = "";
+            //lexms = "";
+            tokens.Clear();
             status = 0;
             k = 0;
 
