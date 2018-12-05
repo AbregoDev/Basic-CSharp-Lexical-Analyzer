@@ -14,15 +14,23 @@ namespace EditorAnalizador
         char c;
         sbyte status;
         int k;
-        string lexms, buffer;
-        List<string[]> tokens = new List<string[]>();
+        string buffer;
+        string[,] tabla;
+        List<string[]> tokens;
+        Stack<char> pila;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            tokens = new List<string[]>();
+            pila = new Stack<char>();
+
+            FillTable();
+
             tbxCode.Focus();
             btnAnalizar.IsEnabled = false;
+            btnDale.IsEnabled = false;
         }
 
         private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -32,14 +40,29 @@ namespace EditorAnalizador
                 e.Handled = true;
 
                 if (tbxCode.Text == "")
+                {
                     btnAnalizar.IsEnabled = false;
+                    btnDale.IsEnabled = false;
+                }
 
                 else
+                {
                     btnAnalizar.IsEnabled = true;
+                    btnDale.IsEnabled = true;
+                }
             }
         }
 
         private void btnAnalizar_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateTokens();
+
+            //Impresión
+            for(int f = 0; f < tokens.Count; f++)
+                tbxTokens.Text += "Lexema: \"" + tokens[f][0] + "\", Token: " + tokens[f][1] + "\n";
+        }
+
+        private void GenerateTokens()
         {
             Reset();
 
@@ -57,7 +80,7 @@ namespace EditorAnalizador
                         if (c == '.')
                         {
                             ////lexms += "Lexema: \".\", Token: Punto\n";
-                            tokens.Add(new string[] {".", "Punto"});
+                            tokens.Add(new string[] { ".", "Punto" });
 
                             //status = 0;
                             k++;
@@ -166,7 +189,7 @@ namespace EditorAnalizador
                         else if (c == '/')
                         {
                             buffer = c.ToString();
-                            
+
                             status = 1;
                             k++;
                         }
@@ -883,11 +906,6 @@ namespace EditorAnalizador
 
                 buffer = string.Empty;
             }
-
-            //tbxTokens.Text = lexms;
-
-            for(int f = 0; f < tokens.Count; f++)
-                tbxTokens.Text += "Lexema: \"" + tokens[f][0] + "\", Token: " + tokens[f][1] + "\n";
         }
 
         private void MatcherReservedWords(string s)
@@ -1229,13 +1247,108 @@ namespace EditorAnalizador
 
         private void Reset()
         {
-            //lexms = "";
             tokens.Clear();
             status = 0;
             k = 0;
 
             tbxCode.Height = 300;
             tbxTokens.Visibility = Visibility.Visible;
+        }
+
+        private void FillTable()
+        {
+            tabla = new string[4,7];
+
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 7; j++)
+                    tabla[i, j] = "E";
+
+            tabla[0, 1] = tabla[2, 1] = "a";
+            tabla[0, 2] = tabla[2, 2] = "c";
+            tabla[0, 3] = "n";
+            tabla[0, 4] = tabla[1, 4] = "p";
+            tabla[0, 5] = tabla[1, 5] = "r";
+            tabla[0, 6] = "$";
+            tabla[3,1] = tabla[3,2] = "FnD";
+
+            tabla[0, 0] = " ";
+            tabla[1, 0] = "D";
+            tabla[2, 0] = "F";
+            tabla[3, 0] = "S";
+        }
+
+        private void BtnDale_Click(object sender, RoutedEventArgs e)
+        {
+            int k = 0;
+            string aux, cadena = tbxCode.Text;
+            pila.Clear();
+
+            pila.Push('S');
+            while(pila.Count != 0)
+            {
+                if (Char.IsLower(pila.Peek()))
+                {
+                    if (pila.Peek() == cadena[k])
+                    {
+                        pila.Pop();
+                        k++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        aux = tabla[SearchColumn(tabla, 0, pila.Peek()), SearchRow(tabla, 0, cadena[k])];
+                        if (aux != "E")
+                        {
+                            pila.Pop();
+                            for (int j = 0; j < aux.Length; j++)
+                                pila.Push(aux[aux.Length - j - 1]);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (k == cadena.Length && pila.Count == 0)
+            {
+                lblSt.Foreground = Brushes.YellowGreen;
+                lblSt.Content = "Bien";
+            }
+            else
+            {
+                lblSt.Foreground = Brushes.OrangeRed;
+                lblSt.Content = "Mal";
+            }
+        }
+
+        private int SearchColumn(string[,] array, int index, char symb)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+                if (array[i, index] == symb.ToString())
+                    return i;
+
+            return -1;
+        }
+
+        private int SearchRow(string[,] array, int index, char symb)
+        {
+            for (int i = 0; i < array.GetLength(1); i++)
+                if (array[index, i] == symb.ToString())
+                    return i;
+
+            return -1;
         }
     }
 }

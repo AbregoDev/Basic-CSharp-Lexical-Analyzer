@@ -21,7 +21,7 @@
                  BorderThickness="2" BorderBrush="CadetBlue"
                  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,100" />
 
-        <Button Name="btnAnalizar" Content="Analizar" Height="40" Width="100"
+        <Button Name="btnAnalizar" Content="Analizador Léxico" Height="40" Width="180"
                 FontSize="20" FontWeight="DemiBold"
                 HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="26,30"
                 Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue"
@@ -29,6 +29,16 @@
 
         <Label Name="lblStatus" Height="50" Width="160"
                FontSize="30" FontWeight="Bold"
-               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="170,30"/>
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="226,30"/>
+
+        <Button Name="btnDale" Content="Analizador Sintánctico" Height="40" Width="230"
+                FontSize="20" FontWeight="DemiBold"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="26,30"
+                Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue" Click="BtnDale_Click"
+                />
+
+        <Label Name="lblSt" Height="50" Width="120"
+               FontSize="30" FontWeight="Bold"
+               HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" Margin="280,30"/>
     </Grid>
 </Window>
