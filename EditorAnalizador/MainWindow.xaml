@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EditorAnalizador"
         mc:Ignorable="d"
-        Title="MainWindow" Height="680" Width="980" Background="#011C36" ResizeMode="CanResize">
+        Title="MainWindow" Height="680" Width="980" Background="#011C36" ResizeMode="NoResize">
     <Grid PreviewKeyUp="Grid_PreviewKeyUp">
         <TextBox Name="tbxCode" Height="515" Width="920"
                  AcceptsReturn="True" AcceptsTab="True"
                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                  FontSize="20" FontFamily="Consolas" Foreground="White" Background="#01162B"
                  BorderThickness="2" BorderBrush="CadetBlue"
-                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40"/>
+                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40" KeyDown="tbxCode_KeyDown"/>
 
         <TextBox Name="tbxTokens" Height="180" Width="920"
                  AcceptsReturn="True" AcceptsTab="True" IsEnabled="True"
@@ -33,7 +33,7 @@
 
         <Button Name="btnDale" Content="Analizador Sintánctico" Height="40" Width="230"
                 FontSize="20" FontWeight="DemiBold"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="26,30"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="26,30" Visibility="Hidden"
                 Foreground="White" Background="#01162B" BorderThickness="2" BorderBrush="CadetBlue" Click="BtnDale_Click"
                 />
 
